@@ -1,0 +1,19 @@
+{
+     "name": "2nd_mrb_bot",
+     "version": "1.0.0",
+     "description": "",
+     "main": "2ndmrb.js",
+     "scripts": {
+       "test": "echo \"Error: no test specified\" && exit 1"
+     },
+     "repository": {
+       "type": "git",
+       "url": "git+https://gitlab.com/SaleenTheGod/2ndmrb-bot.git"
+     },
+     "author": "James Ambrose",
+     "license": "ISC",
+     "bugs": {
+       "url": "https://gitlab.com/SaleenTheGod/2ndmrb-bot/issues"
+     },
+     "homepage": "https://github.com/Thotbot/Thotbot-Source#readme"
+   }
