@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 let recruiterGroupID = "656369822719803421"
-let botAPIToken = "Bot API Token Goes Here"
+let botAPIToken = "API Token Goes Here"
 bot.login(botAPIToken);
 
 bot.on('guildMemberAdd', member => {
@@ -23,10 +23,13 @@ bot.on('message', (message) => {
     var messagesplit = message.content.split(" ");
 
     if (messagesplit[0] === "!debug") {
+        console.log("2nd MRB Debug Message Found: ", messagesplit[0])
         message.reply("https://m.imgur.com/r/The_Dennis/0VbZH5G");
     }
 
     if (messagesplit[0] === "!recruiters") {
+        console.log("2nd MRB Message Found: ", messagesplit[0])
+        console.log("Sending message to: ", recruiterGroupID)
         message.channel.send(`<@&${recruiterGroupID}> is on the way!`);
     }
 });
