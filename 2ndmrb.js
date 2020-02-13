@@ -5,6 +5,7 @@ var giphy = require('giphy-api')('jb85gNp1WGUXiR58jTcNhFklaWLSZvag');
 let recruiterGroupID = "656369822719803421"
 let botAPIToken = "" //API Token here
 
+
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
 	process.exit()
@@ -77,14 +78,19 @@ bot.on('message', (message) => {
 
     if (messagesplit[0] === "!debug") {
         console.log("2nd MRB Debug Message Found: ", messagesplit[0])
-        message.reply("version: 1.1.0; Added Giphy support");
+        message.reply("version: 1.1.0");
         message.reply(welcomeMessage);
     }
 
     if (messagesplit[0] === "!giphy") {
-        console.log("2nd MRB Debug Message Found: ", messagesplit[0])
+        messageContentRejoined = ""
+        for (var i = 1; i < messagesplit.length; i++)
+        {
+            messageContentRejoined = messageContentRejoined + messagesplit[i] + " "
+        }
+        console.log("2nd MRB Debug Message Found: ", messagesplit[0], messageContentRejoined)
         giphy.random({
-            tag: messagesplit[1],
+            tag: messageContentRejoined,
             fmt: 'json'
         }, function (err, res) {
             // Res contains gif data!
@@ -98,6 +104,5 @@ bot.on('message', (message) => {
                 console.log(err)
             }
         });
-        
     }
 });
