@@ -4,29 +4,28 @@ var giphy = require('giphy-api')('jb85gNp1WGUXiR58jTcNhFklaWLSZvag');
 
 let recruiterGroupID = "656369822719803421"
 let botAPIToken = "" //API Token here
-
+let welcomeChannelName = "reception"
+let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
 
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
 	process.exit()
 }
 
-
-let welcomeChannelName = "reception"
-let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
 bot.login(botAPIToken);
 
 console.log("2nd MRB Bot Initiated")
 
 bot.on('guildMemberAdd', member => {
     // Send the message to a designated channel on a server:
-    const channel = member.guild.channels.find(ch => ch.name === 'general');
+    const channel = member.guild.channels.find(ch => ch.name === welcomeChannelName);
     // Do nothing if the channel wasn't found on this server
     if (!channel) return;
     // Send the message, mentioning the member
     try
     {
-        channel.send(`Welcome to the server, ${member}.\n`, welcomeMessage);
+        channel.send(`Welcome to the server, ${member}!`);
+        channel.send(welcomeMessage);
     } catch
     {
         console.log("Cannot find channel name:", welcomeChannelName)
@@ -88,21 +87,46 @@ bot.on('message', (message) => {
         {
             messageContentRejoined = messageContentRejoined + messagesplit[i] + " "
         }
-        console.log("2nd MRB Debug Message Found: ", messagesplit[0], messageContentRejoined)
-        giphy.random({
-            tag: messageContentRejoined,
-            fmt: 'json'
-        }, function (err, res) {
-            // Res contains gif data!
-            try {
-                console.debug(res);
-                message.channel.send(res.data.image_url);
-            }
-            catch
-            {
-                console.error(err)
-                console.log(err)
-            }
-        });
+        console.log("2nd MRB Debug Message Found: ", messagesplit[0], messageContentRejoined, "messageContentRejoined Length: ", messageContentRejoined.length)
+
+        for (var j = 0; i < messagesplit.length; j++)
+        {
+            console.log(messagesplit[j])
+        }
+        if (messagesplit.length > 2)
+        {
+            giphy.search({
+                tag: messageContentRejoined,
+                fmt: 'json'
+            }, function (err, res) {
+                // Res contains gif data!
+                try {
+                    // console.debug(res);
+                    message.channel.send(res.data.image_url);
+                }
+                catch
+                {
+                    console.error(err)
+                    console.log(err)
+                }
+            });
+        }
+        else{
+            giphy.random({
+                tag: messageContentRejoined,
+                fmt: 'json'
+            }, function (err, res) {
+                // Res contains gif data!
+                try {
+                    // console.debug(res);
+                    message.channel.send(res.data.image_url);
+                }
+                catch
+                {
+                    console.error(err)
+                    console.log(err)
+                }
+            });
+        }
     }
 });
