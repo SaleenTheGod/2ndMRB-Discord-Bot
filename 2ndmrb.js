@@ -43,11 +43,9 @@ bot.on('message', (message) => {
     let messagesplit = messageContent.split(" ");
 
     
-    
-
     if (messagesplit[0] === "!commands" || messagesplit[0] === "!help") {
         console.log("2nd MRB Message Found: ", messagesplit[0])
-        let helpMsg = "```\n!help: displays this message\n\n!commands: displays this message\n\n!info: Displays 2nd MRB Server information\n\n!recruiters: Grabs recruiter attention by @-ing them (J-1 Personal Staff)\n\n!orbat: Gives the unit ORBAT link\n\n!modpack: Displays the modpack link```";
+        let helpMsg = "```\n!help: displays this message\n\n!commands: displays this message\n\n!info: Displays 2nd MRB Server information\n\n!recruiters: Grabs recruiter attention by @-ing them (J-1 Personal Staff)\n\n!orbat: Gives the unit ORBAT link\n\n!modpack: Displays the modpack link\n\n!sop: Links the unit Standards of Procedure documentation```";
         message.reply(helpMsg);
     }
 
@@ -75,6 +73,12 @@ bot.on('message', (message) => {
         message.channel.send(`<@&${recruiterGroupID}> is on the way!`);
     }
 
+    if (messagesplit[0] === "!sop") {
+        console.log("2nd MRB Message Found: ", messagesplit[0])
+        let sopMsg = `**SOP:** https://docs.google.com/document/d/1M-p8wHoz0FBMTZt5SH58TppE_3B8RnKvCE8EuEpQNMc/edit?usp=sharing`;
+        message.reply(sopMsg);
+    }
+    
     if (messagesplit[0] === "!debug") {
         console.log("2nd MRB Debug Message Found: ", messagesplit[0])
         message.reply("version: 1.1.0");
