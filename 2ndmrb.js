@@ -2,7 +2,8 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 var giphy = require('giphy-api')('jb85gNp1WGUXiR58jTcNhFklaWLSZvag');
 
-let recruiterGroupID = "656369822719803421"
+let personGroupID = "656369822719803421"
+let recruiterGroupID = "682778069651554396"
 let botAPIToken = "" //API Token here
 let welcomeChannelName = "reception"
 let leaveChannelName = "water-cooler"
@@ -41,7 +42,7 @@ bot.on('guildMemberRemove', member => {
     // Send the message, mentioning the member
     try
     {
-        channel.send(`${member} has left the server. <@&${recruiterGroupID}>`);
+        channel.send(`${member} has left the server. <@&${personGroupID}> <@&${recruiterGroupID}>`);
     } catch
     {
         console.log("Cannot find channel name:", welcomeChannelName)
@@ -84,7 +85,7 @@ bot.on('message', (message) => {
 
     if (messagesplit[0] === "!recruiters") {
         console.log("2nd MRB Message Found: ", messagesplit[0])
-        console.log("Sending message to: ", recruiterGroupID)
+        console.log("Sending message to: ", personGroupID)
         message.channel.send(`<@&${recruiterGroupID}> is on the way!`);
     }
 
