@@ -5,6 +5,7 @@ var giphy = require('giphy-api')('jb85gNp1WGUXiR58jTcNhFklaWLSZvag');
 let recruiterGroupID = "656369822719803421"
 let botAPIToken = "" //API Token here
 let welcomeChannelName = "reception"
+let leaveChannelName = "water-cooler"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
 
 if (botAPIToken.length === 0) {
@@ -31,8 +32,22 @@ bot.on('guildMemberAdd', member => {
         console.log("Cannot find channel name:", welcomeChannelName)
     }
   });
-  
 
+bot.on('guildMemberRemove', member => {
+    // Send the message to a designated channel on a server:
+    const channel = member.guild.channels.find(ch => ch.name === leaveChannelName);
+    // Do nothing if the channel wasn't found on this server
+    if (!channel) return;
+    // Send the message, mentioning the member
+    try
+    {
+        channel.send(`${member} has left the server. <@&${recruiterGroupID}>`);
+    } catch
+    {
+        console.log("Cannot find channel name:", welcomeChannelName)
+    }
+  });
+  
 bot.on('message', (message) => {
     // Ignores the bots own messages so it doesn't parse itself
     if (message.author.bot) return;
