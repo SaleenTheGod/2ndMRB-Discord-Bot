@@ -8,6 +8,7 @@ let botAPIToken = "" //API Token here
 let welcomeChannelName = "reception"
 let leaveChannelName = "water-cooler"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
+let messWithHero = false
 
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
@@ -99,6 +100,7 @@ bot.on('message', (message) => {
         console.log("2nd MRB Debug Message Found: ", messagesplit[0])
         message.reply("version: 1.1.0");
         message.reply(welcomeMessage);
+        console.log(message.author.id)
     }
 
     if (messagesplit[0] === "!giphy") {
@@ -148,5 +150,24 @@ bot.on('message', (message) => {
                 }
             });
         }
+    }
+    // END IF
+    
+    if (messagesplit[0] === "!togglehero")
+    {
+        if (messWithHero === true)
+        {
+            messWithHero = false
+        }
+        else if (messWithHero === false)
+        {
+            messWithHero = true
+        }
+        console.log("messWithHero status: " + messWithHero)
+    }
+
+    if ((message.author.id === '311579733877981187') && (messWithHero === true)) {
+        message.react('💩');
+        message.react('🤮');
     }
 });
