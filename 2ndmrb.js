@@ -7,8 +7,16 @@ let recruiterGroupID = "682778069651554396"
 let botAPIToken = "" //API Token here
 let welcomeChannelName = "reception"
 let leaveChannelName = "water-cooler"
+let banterChannelId = "656668182211330068"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
-let messWithHero = false
+
+function wait(ms)
+{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
+}
 
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
@@ -152,22 +160,45 @@ bot.on('message', (message) => {
         }
     }
     // END IF
-    
-    if (messagesplit[0] === "!togglehero")
-    {
-        if (messWithHero === true)
-        {
-            messWithHero = false
-        }
-        else if (messWithHero === false)
-        {
-            messWithHero = true
-        }
-        console.log("messWithHero status: " + messWithHero)
-    }
 
-    if ((message.author.id === '311579733877981187') && (messWithHero === true)) {
-        message.react('💩');
-        message.react('🤮');
+    //let banterchannelObj = member.guild.channels.find(ch => ch.name === banterChannelId);
+  //  console.log(banterchannelObj)
+  //console.log(message.channel.id)
+    if ((message.channel.id == banterChannelId)) {
+        
+        let rando = (Math.round(Math.random() * 50))
+        //console.log(rando)
+        if (rando == 10)
+        {   
+            message.react('🇸')
+			.then(() => message.react('🇨'))
+            .then(() => message.react('🇭'))
+            .then(() => message.react('🇲'))
+            .then(() => message.react('🇪'))
+            .then(() => message.react('🇦'))
+            .then(() => message.react('🇹'))
+			.catch(() => console.error('One of the emojis failed to react.'));
+        }
+        if (rando == 8)
+        {
+            message.react('🇸')
+			.then(() => message.react('🇮'))
+            .then(() => message.react('🇲'))
+            .then(() => message.react('🇵'))
+			.catch(() => console.error('One of the emojis failed to react.'));
+        }
+        if (rando == 6)
+        {
+
+            message.react('🆗')
+            .then(() => message.react('🇿'))
+            .then(() => message.react('🇴'))
+            .then(() => message.react('🅾️'))
+            .then(() => message.react('🇲'))
+            .then(() => message.react('🇪'))
+            .then(() => message.react('🇷'))
+            .catch(() => console.error('One of the emojis failed to react.'));
+        }
+
     }
 });
