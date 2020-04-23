@@ -10,14 +10,6 @@ let leaveChannelName = "water-cooler"
 let banterChannelId = "656668182211330068"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
 
-function wait(ms)
-{
-var d = new Date();
-var d2 = null;
-do { d2 = new Date(); }
-while(d2-d < ms);
-}
-
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
 	process.exit()
@@ -29,7 +21,7 @@ console.log("2nd MRB Bot Initiated")
 
 bot.on('guildMemberAdd', member => {
     // Send the message to a designated channel on a server:
-    const channel = member.guild.channels.find(ch => ch.name === welcomeChannelName);
+    const channel = member.guild.channels.find(channel => channel.name === welcomeChannelName)
     // Do nothing if the channel wasn't found on this server
     if (!channel) return;
     // Send the message, mentioning the member
