@@ -170,7 +170,6 @@ bot.on('message', (message) => {
         
         let rando = (Math.round(Math.random() * 50))
         console.log(rando)
-        rando = 10
         if (rando == 10)
         {   
             message.react('🇸')
