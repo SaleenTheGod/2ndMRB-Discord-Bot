@@ -10,6 +10,16 @@ let leaveChannelName = "water-cooler"
 let banterChannelId = "656668182211330068"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
 
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
+
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
 	process.exit()
@@ -159,7 +169,8 @@ bot.on('message', (message) => {
     if ((message.channel.id == banterChannelId)) {
         
         let rando = (Math.round(Math.random() * 50))
-        //console.log(rando)
+        console.log(rando)
+        rando = 10
         if (rando == 10)
         {   
             message.react('🇸')
