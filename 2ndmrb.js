@@ -31,14 +31,14 @@ console.log("2nd MRB Bot Initiated")
 
 bot.on('guildMemberAdd', member => {
     // Send the message to a designated channel on a server:
-    const channel = member.guild.channels.find(channel => channel.name === welcomeChannelName)
+    let welcome_channel = member.guild.channels.find(channel => channel.name === welcomeChannelName)
     // Do nothing if the channel wasn't found on this server
-    if (!channel) return;
+    if (!welcome_channel) return;
     // Send the message, mentioning the member
     try
     {
-        channel.send(`Welcome to the server, ${member}!`);
-        channel.send(welcomeMessage);
+        welcome_channel.send(`Welcome to the server, ${member}!`);
+        welcome_channel.send(welcomeMessage);
     } catch
     {
         console.log("Cannot find channel name:", welcomeChannelName)
@@ -47,16 +47,16 @@ bot.on('guildMemberAdd', member => {
 
 bot.on('guildMemberRemove', member => {
     // Send the message to a designated channel on a server:
-    const channel = member.guild.channels.find(ch => ch.name === leaveChannelName);
+    let leave_channel = member.guild.channels.find(ch => ch.name === leaveChannelName);
     // Do nothing if the channel wasn't found on this server
-    if (!channel) return;
+    if (!leave_channel) return;
     // Send the message, mentioning the member
     try
     {
-        channel.send(`${member} has left the server. <@&${personGroupID}> <@&${recruiterGroupID}>`);
+        leave_channel.send(`${member} has left the server. <@&${personGroupID}> <@&${recruiterGroupID}>`);
     } catch
     {
-        console.log("Cannot find channel name:", welcomeChannelName)
+        console.log("Cannot find channel name:", leaveChannelName)
     }
   });
   
