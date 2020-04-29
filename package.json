@@ -1,7 +1,7 @@
 {
      "name": "2nd_mrb_bot",
      "version": "1.0.0",
-     "description": "",
+     "description": "2nd MRB Discord Bot",
      "main": "2ndmrb.js",
      "scripts": {
        "test": "echo \"Error: no test specified\" && exit 1"
