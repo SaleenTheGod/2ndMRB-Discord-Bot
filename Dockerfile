@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10.20.1-jessie
 LABEL author = "James Ambrose"
 WORKDIR /usr/src/app
 COPY package*.json ./
