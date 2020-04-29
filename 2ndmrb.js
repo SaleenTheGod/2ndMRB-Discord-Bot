@@ -1,24 +1,13 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-var giphy = require('giphy-api')('jb85gNp1WGUXiR58jTcNhFklaWLSZvag');
 
 let personGroupID = "656369822719803421"
 let recruiterGroupID = "682778069651554396"
 let botAPIToken = "" //API Token here
-let welcomeChannelName = "reception"
-let leaveChannelName = "water-cooler"
+let welcomeChannelId = "656584497503928330"
+let leaveChannelId = "656371500412043275"
 let banterChannelId = "656668182211330068"
 let welcomeMessage = `Please contact a recruiter (<@&${recruiterGroupID}>) and be ready in the Recruitment Office channel!\n\n\nYou can get their attention by typing "**!recruiters**" In any text channel in our discord\n\n\nYou can see a full list of commands by typing "**!help**"`
-
-var fs = require('fs');
-var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
-var log_stdout = process.stdout;
-
-console.log = function(d) { //
-  log_file.write(util.format(d) + '\n');
-  log_stdout.write(util.format(d) + '\n');
-};
 
 if (botAPIToken.length === 0) {
 	console.log('remember to insert your token into 2ndmrb.js :)')
@@ -30,9 +19,8 @@ bot.login(botAPIToken);
 console.log("2nd MRB Bot Initiated")
 
 bot.on('guildMemberAdd', member => {
-    // Send the message to a designated channel on a server:
-    let welcome_channel = member.guild.channels.find(channel => channel.name === welcomeChannelName)
-    // Do nothing if the channel wasn't found on this server
+    
+    const welcome_channel = bot.channels.cache.get(welcomeChannelId);
     if (!welcome_channel) return;
     // Send the message, mentioning the member
     try
@@ -47,7 +35,7 @@ bot.on('guildMemberAdd', member => {
 
 bot.on('guildMemberRemove', member => {
     // Send the message to a designated channel on a server:
-    let leave_channel = member.guild.channels.find(ch => ch.name === leaveChannelName);
+    const leave_channel = bot.channels.cache.get(leaveChannelId);
     // Do nothing if the channel wasn't found on this server
     if (!leave_channel) return;
     // Send the message, mentioning the member
@@ -112,56 +100,6 @@ bot.on('message', (message) => {
         message.reply(welcomeMessage);
         console.log(message.author.id)
     }
-
-    if (messagesplit[0] === "!giphy") {
-        messageContentRejoined = ""
-        for (var i = 1; i < messagesplit.length; i++)
-        {
-            messageContentRejoined = messageContentRejoined + messagesplit[i] + " "
-        }
-        console.log("2nd MRB Debug Message Found: ", messagesplit[0], messageContentRejoined, "messageContentRejoined Length: ", messageContentRejoined.length)
-
-        for (var j = 0; i < messagesplit.length; j++)
-        {
-            console.log(messagesplit[j])
-        }
-        if (messagesplit.length > 2)
-        {
-            giphy.search({
-                tag: messageContentRejoined,
-                fmt: 'json'
-            }, function (err, res) {
-                // Res contains gif data!
-                try {
-                    // console.debug(res);
-                    message.channel.send(res.data.image_url);
-                }
-                catch
-                {
-                    console.error(err)
-                    console.log(err)
-                }
-            });
-        }
-        else{
-            giphy.random({
-                tag: messageContentRejoined,
-                fmt: 'json'
-            }, function (err, res) {
-                // Res contains gif data!
-                try {
-                    // console.debug(res);
-                    message.channel.send(res.data.image_url);
-                }
-                catch
-                {
-                    console.error(err)
-                    console.log(err)
-                }
-            });
-        }
-    }
-    // END IF
 
     //let banterchannelObj = member.guild.channels.find(ch => ch.name === banterChannelId);
   //  console.log(banterchannelObj)
