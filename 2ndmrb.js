@@ -16,7 +16,13 @@
 var fs = require('fs');
 var util = require('util');
 var log_file = fs.createWriteStream(__dirname + '/2ndmrb-bot-logs/2ndmrbbot.log', {flags : 'w'});
+var checkin_json_file = fs.createWriteStream(__dirname + 'checkin.log', {flags : 'w'});
 var log_stdout = process.stdout;
+
+console.checkin = function(d) { //
+  checkin_json_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+}
 
 console.log = function(d) { //
   log_file.write(util.format(d) + '\n');
@@ -42,6 +48,7 @@ const infoMsg = "```\nArma Server: arma.2ndmrb.info\n\nTeamspeak Server: teamspe
 const orbatMsg = "https://docs.google.com/spreadsheets/d/1wAzb-syIXvx4a583H-92WLNLzHk7qEil9objc0lhSEU/edit?usp=sharing";
 const modpackMsg = `**Modpack:** https://steamcommunity.com/sharedfiles/filedetails/?id=1938803696`;
 const sopMsg = `**SOP:** https://docs.google.com/document/d/1M-p8wHoz0FBMTZt5SH58TppE_3B8RnKvCE8EuEpQNMc/edit?usp=sharing`;
+
 
 // ------------------------------------------------------------------
 
@@ -74,6 +81,9 @@ catch
 
 bot.on('ready', () => {
     console.log('2nd MRB Bot Successfully logged in.');
+    const fs = require('fs')
+    const filePath = 'checkin.json'
+    const fd = fs.openSync(filePath, 'w')
   });
 
 // ------------------------------------------------------------------
@@ -94,7 +104,7 @@ bot.on('guildMemberAdd', member => {
         welcome_channel.send(`Welcome to the server, ${member}!` + "\n" + welcomeMessage);
     } catch
     {
-        console.log("Cannot find channel name:", welcomeChannelName);
+        console.log("Cannot find channel name: ", welcomeChannelName);
     }
   });
 
@@ -116,6 +126,36 @@ bot.on('guildMemberRemove', member => {
     }
   });
   
+bot.on('messageReactionAdd', (reaction, user) => {
+    let message = reaction.message, emoji = reaction.emoji;
+    if (emoji.name == '✅' && message.channel.id == config2ndMRB.checkChannelID) 
+    {
+        //console.debug("✅ reaction logged in channel id: " + message.channel.id)
+        //console.debug(reaction.users)
+        //console.debug(JSON.stringify(reaction.users["cache"]))
+        let user_reaction_json = (JSON.stringify(reaction.users["cache"])).substring(1, (JSON.stringify(reaction.users["cache"])).length-1)
+        user_reaction_json = JSON.parse(user_reaction_json);
+        console.log("User: " + user_reaction_json.username +  " ID: " + user_reaction_json.id + " has reacted to the unit check in. Logging...")
+        console.debug(user_reaction_json)
+        console.checkin(user_reaction_json.username);
+
+        // fs.readFile('checkin.json', 'utf8', function readFileCallback(err, data){
+        //     if (err){
+        //         console.log(err);
+        //     } else {
+        //     console.log("1")
+        //     let obj = (JSON.stringify(reaction.users["cache"])).substring(1, (JSON.stringify(reaction.users["cache"])).length-1); //now it an object
+        //     console.log(obj)
+        //     obj.table.push(obj.id); //add some data
+        //     console.log("3")
+        //     let tempjson = JSON.stringify(obj); //convert it back to json
+        //     console.log("4")
+        //     fs.writeFile('checkin.json.json', tempjson, 'utf8', callback); // write it back 
+        // }});
+    }
+});
+
+
 bot.on('message', (message) => {
     // Ignores the bots own messages so it doesn't parse itself
     if (message.author.bot) return;
@@ -126,13 +166,20 @@ bot.on('message', (message) => {
     // Splits the Discord message into an array of strings using " " as a delimiter.
     let messagesplit = messageContent.split(" ");
 
-    
     switch(messagesplit[0])
     {
         case "!commands":
         case "!help":  
             console.log("2nd MRB Message Found: " + messagesplit[0]);
             message.reply(helpMsg);
+            break;
+        case "!checkin":
+            const checkInChannel = bot.channels.cache.get(config2ndMRB.checkChannelID);
+            console.debug("checkInChannelID: " + config2ndMRB.checkChannelID)
+            console.debug("checkInChannel: " + checkInChannel)
+            console.debug(config2ndMRB.bofa)
+            checkInChannel.send("@everyone```\n\nAll members of the 2nd MRB must check-in once during the 2-Week period. Simply react to this message with the '✅' Emoji```")
+                .then(message.react('✅'));
             break;
         case "!info":
             console.log("2nd MRB Message Found: " + messagesplit[0]);
@@ -166,7 +213,6 @@ bot.on('message', (message) => {
             {
                 message.reply(message.author.displayAvatarURL());
             }
-
             break;
         case "!debug":
             console.log(JSON.stringify(config2ndMRB));
@@ -175,38 +221,22 @@ bot.on('message', (message) => {
     }
 
     if ((message.channel.id == config2ndMRB.banterChannelID)) {
-        
         let banterRandom = getRndInteger(1,100);
         console.log("Banter chat detected: " + banterRandom);
         if (banterRandom == 1)
         {   
-            message.react('🇸')
-			.then(() => message.react('🇨'))
-            .then(() => message.react('🇭'))
-            .then(() => message.react('🇲'))
-            .then(() => message.react('🇪'))
-            .then(() => message.react('🇦'))
-            .then(() => message.react('🇹'))
-			.catch(() => console.error('One of the emojis failed to react.'));
+            message.react('🇸').then(() => message.react('🇨')).then(() => message.react('🇭')).then(() => message.react('🇲')).then(() => message.react('🇪')).then(() => message.react('🇦')).then(() => message.react('🇹'))
+			    .catch(() => console.error('One of the emojis failed to react.'));
         }
         if (banterRandom == 50)
         {
-            message.react('🇸')
-			.then(() => message.react('🇮'))
-            .then(() => message.react('🇲'))
-            .then(() => message.react('🇵'))
-			.catch(() => console.error('One of the emojis failed to react.'));
+            message.react('🇸').then(() => message.react('🇮')).then(() => message.react('🇲')).then(() => message.react('🇵'))
+                .catch(() => console.error('One of the emojis failed to react.'));
         }
         if (banterRandom == 100)
         {
-            message.react('🆗')
-            .then(() => message.react('🇿'))
-            .then(() => message.react('🇴'))
-            .then(() => message.react('🅾️'))
-            .then(() => message.react('🇲'))
-            .then(() => message.react('🇪'))
-            .then(() => message.react('🇷'))
-            .catch(() => console.error('One of the emojis failed to react.'));
+            message.react('🆗').then(() => message.react('🇿')).then(() => message.react('🇴')).then(() => message.react('🅾️')).then(() => message.react('🇲')).then(() => message.react('🇪')).then(() => message.react('🇷'))
+                .catch(() => console.error('One of the emojis failed to react.'));
         }
 
     }
