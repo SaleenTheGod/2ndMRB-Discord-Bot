@@ -40,7 +40,7 @@ const welcomeMessage = `Please contact a recruiter (<@&${config2ndMRB.recruiterG
 const helpMsg = "```\n!help: displays this message\n\n!commands: displays this message\n\n!info: Displays 2nd MRB Server information\n\n!recruiters: Grabs recruiter attention by @-ing them (J-1 Personal Staff)\n\n!orbat: Gives the unit ORBAT link\n\n!modpack: Displays the modpack link\n\n!sop: Links the unit Standards of Procedure documentation\n\n!av | !avatar @USER: Displays user's avatar```"
 const infoMsg = "```\nArma Server: arma.2ndmrb.info\n\nTeamspeak Server: teamspeak.2ndmrb.info\n\nWebsite: https://2ndmrb.info```";
 const orbatMsg = "https://docs.google.com/spreadsheets/d/1wAzb-syIXvx4a583H-92WLNLzHk7qEil9objc0lhSEU/edit?usp=sharing";
-const modpackMsg = `**Modpack:** https://steamcommunity.com/sharedfiles/filedetails/?id=1938803696`;
+const modpackMsg = `**Modpack:** https://steamcommunity.com/sharedfiles/filedetails/?id=2123825129`;
 const sopMsg = `**SOP:** https://docs.google.com/document/d/1M-p8wHoz0FBMTZt5SH58TppE_3B8RnKvCE8EuEpQNMc/edit?usp=sharing`;
 
 // ------------------------------------------------------------------
