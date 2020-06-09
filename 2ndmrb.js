@@ -42,7 +42,7 @@ const infoMsg = "```\nArma Server: arma.2ndmrb.info\n\nTeamspeak Server: teamspe
 const orbatMsg = "https://docs.google.com/spreadsheets/d/1wAzb-syIXvx4a583H-92WLNLzHk7qEil9objc0lhSEU/edit?usp=sharing";
 const modpackMsg = `**Modpack:** https://steamcommunity.com/sharedfiles/filedetails/?id=2123825129`;
 const sopMsg = `**SOP:** https://docs.google.com/document/d/1M-p8wHoz0FBMTZt5SH58TppE_3B8RnKvCE8EuEpQNMc/edit?usp=sharing`;
-const clanlistMsg = "Daily reminder to vote on Clans List. Remeber, we need @everyone's participation! :)\nhttps://clanlist.io/vote/2dMRBRep"
+const clanlistMsg = "Daily reminder to vote on Clans List. Remember, we need @everyone's participation! :)\nhttps://clanlist.io/vote/2dMRBRep"
 
 // ------------------------------------------------------------------
 
