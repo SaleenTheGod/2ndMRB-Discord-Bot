@@ -42,6 +42,7 @@ const infoMsg = "```\nArma Server: arma.2ndmrb.info\n\nTeamspeak Server: teamspe
 const orbatMsg = "https://docs.google.com/spreadsheets/d/1wAzb-syIXvx4a583H-92WLNLzHk7qEil9objc0lhSEU/edit?usp=sharing";
 const modpackMsg = `**Modpack:** https://steamcommunity.com/sharedfiles/filedetails/?id=2123825129`;
 const sopMsg = `**SOP:** https://docs.google.com/document/d/1M-p8wHoz0FBMTZt5SH58TppE_3B8RnKvCE8EuEpQNMc/edit?usp=sharing`;
+const clanlistMsg = "Daily reminder to vote on Clans List. Remeber, we need @everyone's participation! :)\nhttps://clanlist.io/vote/2dMRBRep"
 
 // ------------------------------------------------------------------
 
@@ -74,6 +75,15 @@ catch
 
 bot.on('ready', () => {
     console.log('2nd MRB Bot Successfully logged in.');
+    console.log('Starting Cron job for clan list message...')
+    const clanlistChannel = bot.channels.cache.get(config2ndMRB.clanChannelID);
+    if (!clanlistChannel) return;
+    var CronJob = require('cron').CronJob;
+    var job = new CronJob('0 11 * * *', function() {
+        clanlistChannel.send(clanlistMsg);
+    }, null, true, 'America/Chicago');
+    job.start();
+    console.log('Cron job started!')
   });
 
 // ------------------------------------------------------------------
@@ -211,3 +221,5 @@ bot.on('message', (message) => {
 
     }
 });
+
+
