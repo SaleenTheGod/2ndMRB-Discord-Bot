@@ -186,7 +186,7 @@ bot.on('message', (message) => {
 
     if ((message.channel.id == config2ndMRB.banterChannelID)) {
         
-        let banterRandom = getRndInteger(1,100);
+        let banterRandom = getRndInteger(1,250);
         console.log("Banter chat detected: " + banterRandom);
         if (banterRandom == 1)
         {   
