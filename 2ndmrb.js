@@ -186,7 +186,7 @@ bot.on('message', (message) => {
 
     if ((message.channel.id == config2ndMRB.banterChannelID)) {
         
-        let banterRandom = getRndInteger(1,250);
+        let banterRandom = getRndInteger(1,450);
         console.log("Banter chat detected: " + banterRandom);
         if (banterRandom == 1)
         {   
@@ -218,7 +218,40 @@ bot.on('message', (message) => {
             .then(() => message.react('🇷'))
             .catch(() => console.error('One of the emojis failed to react.'));
         }
-
+        if (banterRandom == 150)
+        {
+            message.react('🆗')
+            .then(() => message.react('🇵'))
+            .then(() => message.react('🇴'))
+            .then(() => message.react('🅾️'))
+            .then(() => message.react('🇧'))
+            .catch(() => console.error('One of the emojis failed to react.'));
+        }
+        if (banterRandom == 200)
+        {
+            message.react('🆗')
+            .then(() => message.react('🇨'))
+            .then(() => message.react('🇴'))
+            .then(() => message.react('🅾️'))
+            .then(() => message.react('🇲'))
+            .catch(() => console.error('One of the emojis failed to react.'));
+        }
+        if (banterRandom == 250)
+        {
+            message.react('🆗')
+            .then(() => message.react('🇾'))
+            .then(() => message.react('🇪'))
+            .then(() => message.react('📧'))
+            .then(() => message.react('🇹'))
+            .catch(() => console.error('One of the emojis failed to react.'));
+        }
+        if (banterRandom == 300)
+        {
+            message.react('🆗')
+            .then(() => message.react('🆖'))
+            .then(() => message.react('🇭'))
+            .catch(() => console.error('One of the emojis failed to react.'));
+        }
     }
 });
 
