@@ -6,7 +6,7 @@
 # ------------------------------------------
 
 $jsonFileName = "config-2ndmrb.json"
-
+$mrbDockerImageName = "2ndmrbbot"
 $mrbToken =  Read-Host "Please Enter 2nd MRB Token"
 
 $jsonfile = "{
@@ -22,8 +22,15 @@ $jsonfile = "{
 
 if (Test-Path $jsonFileName) 
 {
+  Write-Host "Old Json File Detected... Removing $jsonFileName"
   Remove-Item $jsonFileName
 }
 
-Write-Host " Generating JSON File: $jsonFileName"
-Out-File -FilePath .\"$jsonFileName" -InputObject $jsonFile
+Write-Host "Generating New JSON File: $jsonFileName"
+Out-File -FilePath .\"$jsonFileName" -InputObject $jsonFile -Encoding ascii
+
+
+Write-Host "Building and Running Local Docker Image: $mrbDockerImageName"
+docker rm $mrbDockerImageName --force
+docker build -t $mrbDockerImageName .
+docker run -d --name $mrbDockerImageName --restart unless-stopped $mrbDockerImageName
